@@ -1,4 +1,4 @@
-/*! angular-google-plus - v0.1.2 2014-11-21 */
+/*! angular-google-plus - v0.1.2 2015-02-06 */
 /**
  * Options object available for module
  * options/services definition.
@@ -46,6 +46,16 @@ angular.module("googleplus", []).provider("GooglePlus", [ function() {
     };
     this.getScopes = function() {
         return options.scopes;
+    };
+    this.addScopes = function(a) {
+        /**
+       * Expects Array of Strings
+       */
+        try {
+            option.scopes += " " + a.join(" ");
+        } finally {
+            return this;
+        }
     };
     /**
      * Init Google Plus API
@@ -116,6 +126,9 @@ angular.module("googleplus", []).provider("GooglePlus", [ function() {
             gapi.auth.signOut();
             return d.promise;
         };
+        e.prototype.getScopes = this.getScopes;
+        e.prototype.setScopes = this.setScopes;
+        e.prototype.addScopes = this.addScopes;
         return new e();
     } ];
 } ]).run([ function() {

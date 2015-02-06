@@ -61,6 +61,16 @@ angular.module('googleplus', []).
       return options.scopes;
     };
 
+    this.addScopes = function(scopes) {
+      /**
+       * Expects Array of Strings
+       */
+      try {
+        option.scopes += ' ' + scopes.join(' ');
+      } finally {
+        return this;  
+      }
+    };
     /**
      * Init Google Plus API
      */
@@ -143,6 +153,10 @@ angular.module('googleplus', []).
         gapi.auth.signOut();
         return deferred.promise;
       };
+
+      NgGooglePlus.prototype.getScopes = this.getScopes;
+      NgGooglePlus.prototype.setScopes = this.setScopes;
+      NgGooglePlus.prototype.addScopes = this.addScopes;
 
       return new NgGooglePlus();
     }];
